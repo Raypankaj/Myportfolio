@@ -1,0 +1,164 @@
+/* src/pages/Contact/Contact.css - Final Touch-Up Version */
+
+.contact-section {
+    width: 100%;
+    padding: 100px 0;
+    min-height: 50vh;
+    color: #ccd6f6;
+    background-color: #0a192f;
+}
+
+/* ------------------------------------------- */
+/* 1. Scoped Title & Content Container */
+/* ------------------------------------------- */
+
+.contact-section .section-title {
+    max-width: 1000px;
+    /* ➡️ IMPROVEMENT: Reduce default horizontal padding for better mobile compatibility */
+    margin: 0 auto 40px auto; 
+    padding: 0 2rem; 
+    
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #e6f1ff;
+    justify-content: center;
+    text-align: center; /* Ensures title wraps cleanly */
+}
+
+.contact-section .number {
+    color: #64ffda; 
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 2rem; /* ➡️ IMPROVEMENT: Standardized padding */
+    text-align: center;
+}
+
+.contact-pitch {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #8892b0;
+}
+
+/* ------------------------------------------- */
+/* 2. Form Styles */
+/* ------------------------------------------- */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #e6f1ff;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 10px; /* ➡️ IMPROVEMENT: Increased vertical padding slightly */
+    border: 1px solid #334e68;
+    border-radius: 4px;
+    background-color: #112a45;
+    color: #ccd6f6;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #64ffda;
+    box-shadow: 0 0 5px rgba(100, 255, 218, 0.8); /* ➡️ IMPROVEMENT: Stronger shadow */
+}
+
+/* ------------------------------------------- */
+/* 3. Status Messages & Submit Button */
+/* ------------------------------------------- */
+
+/* Styles for the success/error messages added in Contact.jsx */
+.status-message {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.status-message.success {
+    background-color: rgba(100, 255, 218, 0.1);
+    color: #64ffda;
+}
+
+.status-message.error {
+    background-color: rgba(255, 99, 71, 0.1); /* Tomato red */
+    color: #ff6347;
+}
+
+.status-message.submitting {
+    color: #e6f1ff;
+    background-color: #112a45;
+}
+
+/* Submit Button */
+.submit-button {
+    margin-top: 20px;
+    padding: 1rem 1.5rem;
+    border: 1px solid #64ffda;
+    border-radius: 4px; /* Changed to match form fields */
+    color: #64ffda;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: rgba(100, 255, 218, 0.1); 
+    color: #64ffda;
+}
+
+/* ➡️ IMPROVEMENT: Style for disabled button */
+.submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: transparent;
+}
+
+
+.direct-email {
+    margin-top: 2rem;
+    color: #8892b0;
+}
+
+.direct-email a {
+    color: #64ffda;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.direct-email a:hover {
+    color: #a8dadc;
+}
+
+/* ------------------------------------------- */
+/* 4. Media Query */
+/* ------------------------------------------- */
+
+@media (max-width: 600px) {
+    /* ➡️ IMPROVEMENT: Remove separate padding reduction, use the standardized padding */
+    .contact-section .section-title,
+    .contact-content {
+        padding: 0 1rem; /* Use a minimal padding on small screens */
+    }
+}

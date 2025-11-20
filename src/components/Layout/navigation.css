@@ -1,0 +1,163 @@
+/* ========================================================== */
+/* 1. GLOBAL LAYOUT & BASE STYLES (.navbar) */
+/* ========================================================== */
+
+.navbar {
+    /* 📦 Layout & Positioning */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    
+    /* 🖼️ Appearance */
+    background-color: #1A1F26; /* Dark background */
+    color: white;
+    padding: 1rem 2rem;
+    
+    /* 📏 Height & Transition for Smart Hiding */
+    height: 80px; /* Crucial for translateY calculation */
+    transition: transform 0.3s ease-in-out; 
+}
+
+/* ========================================================== */
+/* 2. MODIFIER / UTILITY CLASSES (SMART-HIDING LOGIC) */
+/* ========================================================== */
+
+.navbar.hidden {
+    /* Hides the navbar by moving it up its full height */
+    transform: translateY(-80px); 
+}
+
+/* ========================================================== */
+/* 3. ELEMENT STYLES */
+/* ========================================================== */
+
+/* --- Logo Section --- */
+
+.navbar-logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-logo a:hover {
+    color: #00bcd4; /* Hover color */
+    transform: scale(1.05);
+}
+
+.logo-image {
+    /* Ensure height and width are manageable for a logo in a navigation bar */
+    height: 40px; /* Reduced from 20vh for a typical navbar height */
+    width: auto; 
+    object-fit: contain;
+    object-position: center;
+}
+
+/* --- Navigation Links List --- */
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Uses gap for spacing, cleaner than margin on children */
+    margin: 0;
+    padding: 0;
+    margin-right: 3rem;
+}
+
+.navbar-links li {
+    /* Remove redundant list-style as it's set on the parent */
+    margin: 0; /* Let the parent's gap handle spacing */
+}
+
+/* --- General Link Styles (Applies to all <a> tags within navbar-links) --- */
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease; 
+    /* These three lines are often unnecessary if browser prefixes are handled by a tool like Autoprefixer */
+    /* -webkit-border-radius: 30px; */
+    /* -moz-border-radius: 30px; */
+    /* -ms-border-radius: 30px; */
+    /* -o-border-radius: 30px; */
+}
+
+.navbar-links a:hover {
+    color: #00bcd4;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+
+/* ========================================================== */
+/* 4. BUTTON & SPECIAL LINKS (CTA & AI Links) */
+/* ========================================================== */
+
+/* --- Call To Action (Contact) --- */
+
+.cta-button {
+    background-color: #e91e63;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.cta-button:hover {
+    background-color: transparent;
+    color: #e91e63 !important; /* Use !important only if needed to override a specific link color */
+    border-color: #e91e63;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.6);
+}
+
+/* --- AI Feature Links --- */
+
+.ai-link {
+    text-decoration: none;
+    padding: 10px 15px; 
+    font-weight: 600; 
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* 💡 AI Question Answering (Specific override using attribute selector) */
+a[href="/ai-answer"] {
+    color: #20c997; /* Bright cyan */
+    border: 1px solid #20c997;
+}
+
+a[href="/ai-answer"]:hover {
+    background-color: #20c997;
+    color: #1a1a1a;
+}
+
+/* ⚙️ AI Configuration/Integration (Specific override using attribute selector) */
+a[href="/ai-config"] {
+    color: #ae48ff; /* Purple */
+    border: 1px solid #ae48ff;
+}
+
+a[href="/ai-config"]:hover {
+    background-color: #ae48ff;
+    color: #1a1a1a;
+}
+
+/* --- Logo Section --- */
+
+/* ... other logo styles ... */
+
+.logo-image {
+    /* ENHANCED SIZE FOR CLARITY */
+    height: 20vh; /* Increased from 40px */
+    width: 6ovw; /* Set a fixed width to prevent distortion */
+    object-fit: contain;
+    object-position: center;
+}

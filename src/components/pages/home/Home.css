@@ -1,0 +1,144 @@
+/* src/pages/Home/Home.css - Final Touch-Up Version */
+
+.home-section {
+    /* Set height to viewport height for a full-screen "Hero" view */
+    min-height: 100vh; 
+    width: 100%;
+    
+    /* Center the content vertically and horizontally */
+    display: flex;
+    align-items: center; 
+    justify-content: center; /* Changed from space-evenly to center for better control */
+    
+    /* ➡️ IMPROVEMENT: Standardized horizontal padding */
+    padding: 80px 2rem 50px 2rem; 
+    
+    background-color: #0a192f; 
+    color: #ccd6f6;
+}
+
+.home-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Constrain content width */
+    width: 100%;
+}
+
+.text-container {
+    /* ➡️ IMPROVEMENT: Use max-width to allow growth on mobile when stacked */
+    max-width: 600px; 
+    width: 55%; 
+    z-index: 10; /* Ensure text is above any floating elements */
+}
+
+/* --- Text Styles (Good as is) --- */
+.greeting {
+    color: #64ffda;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.name {
+    font-size: 4rem;
+    margin: 0;
+    color: #e6f1ff;
+}
+
+.tagline {
+    font-size: 3rem;
+    margin: 0.5rem 0 1.5rem;
+    color: #8892b0;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 2.5rem; /* Increased margin below description */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border: 1px solid #64ffda;
+    border-radius: 30px;
+    color: #64ffda;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    font-weight: 600; /* Added weight for prominence */
+}
+
+.cta-button:hover {
+    background-color: rgba(100, 255, 218, 0.1); 
+}
+
+/* --- Animation/Image Container --- */
+.animation-container {
+    /* ➡️ IMPROVEMENT: Set max-width for control, and margin-left for spacing */
+    max-width: 450px; 
+    width: 40%;
+    margin-left: 2rem; /* Safe spacing */
+}
+
+.hero-profile-image {
+    /* ➡️ IMPROVEMENT: Use fixed pixel size or max-width for predictable sizing */
+    width: 300px; 
+    height: 300px; 
+    max-width: 100%; /* Ensures image shrinks on small screens */
+    border-radius: 50%;
+    border: 2px solid #64ffda;
+    object-fit: cover;
+    object-position: center;
+    padding: 10px;
+    
+    /* 🛑 CRITICAL FIX: Remove dangerous negative margin */
+    margin: 0;
+} 
+
+/* ========================================================== */
+/* MOBILE RESPONSIVENESS (Max-width: 800px) */
+/* ========================================================== */
+
+@media (max-width: 800px) {
+    .home-section {
+        /* Reduce top padding slightly for small screens */
+        padding: 100px 1rem 50px 1rem; 
+        min-height: auto; /* Allow section to shrink if content is taller than viewport */
+    }
+
+    .home-content {
+        /* ➡️ CRITICAL FIX: Stack columns vertically */
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem; /* Add vertical space between the text and image */
+    }
+
+    .text-container {
+        /* Allow text to take full width */
+        width: 100%;
+        max-width: 100%;
+        order: 2; /* Put text below the image on small screens */
+    }
+
+    .name,
+    .tagline {
+        /* Reduce font sizes for mobile readability */
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.8rem;
+    }
+
+    .animation-container {
+        width: 100%;
+        max-width: 300px; /* Constrain image size */
+        margin: 0 auto; /* Center image */
+        order: 1; /* Put image above text */
+    }
+
+    .hero-profile-image {
+        width: 250px; /* Small adjustment for mobile view */
+        height: 250px;
+    }
+}

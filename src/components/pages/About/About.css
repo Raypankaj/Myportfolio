@@ -1,0 +1,172 @@
+ /* src/pages/About/About.css */
+
+/* ========================================================== */
+/* 1. GLOBAL LAYOUT & BASE STYLES (.about-section) */
+/* ========================================================== */
+
+.about-section {
+    /* CRITICAL: Ensure full width for the background color */
+    width: 100%;
+    
+    /* Vertical spacing applied to the whole section */
+    padding: 100px 0; 
+    
+    min-height: 80vh;
+    color: #ccd6f6;
+    background-color: #0a192f; 
+}
+
+/* --------------------------------------------------------------------- */
+/* --- CONTENT CONTAINERS: Handle centering and max-width internally --- */
+/* --------------------------------------------------------------------- */
+
+/* Apply width constraint and centering to the title */
+.section-title {
+    max-width: 1000px;
+    margin: 0 auto 40px auto; 
+    padding: 0 4rem; 
+    
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #e6f1ff;
+}
+
+.section-title .number {
+    color: #64ffda; /* Accent color */
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+/* This is the main content wrapper that limits the width and centers the text/image */
+.about-content {
+    max-width: 1000px;
+    margin: 0 auto; /* Centers the content block */
+    padding: 0 4rem; /* Internal padding for content */
+    
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.about-text-column {
+    flex: 2; /* Takes up more space */
+    line-height: 1.6;
+}
+
+.about-text-column p {
+    margin-bottom: 15px;
+    color: #8892b0;
+}
+
+/* ========================================================== */
+/* 2. IMAGE/VISUAL COLUMN & CUBE/IMAGE STYLES */
+/* ========================================================== */
+
+.about-image-column {
+    flex: 1; /* Takes up less space */
+    position: relative;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+/* STYLES FOR THE THREE.JS CANVAS CONTAINER (or simple image wrapper) */
+.cube-wrapper {
+    width: 300px;
+    height: 300px; 
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 2px solid #64ffda;
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2); 
+    transition: transform 0.3s ease-in-out;
+}
+
+.cube-wrapper canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* --- Profile Image (used when cube-wrapper is not active) --- */
+.profile-image {
+    /* Set fixed dimensions, crucial for fast loading */
+    width: 300px;
+    height: 300px; 
+    
+    /* Shape and fit */
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    
+    /* Visual styling */
+    border: 2px solid #64ffda;
+    
+    /* Removed redundant vendor prefixes for border-radius */
+    /* Removed typo: mar-right */
+}   
+
+/* ========================================================== */
+/* 3. SKILLS LIST STYLES */
+/* ========================================================== */
+
+.skills-heading {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #e6f1ff;
+    font-size: 1.2rem;
+}
+
+.skills-list {
+    display: grid;
+    /* Use gap for cleaner spacing instead of margin on li */
+    gap: 5px 20px;
+    grid-template-columns: repeat(2, minmax(140px, 200px)); 
+    padding: 0;
+    list-style: none;
+}
+
+.skills-list li {
+    color: #8892b0;
+}
+
+.skills-list .list-icon {
+    color: #64ffda; 
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+/* ========================================================== */
+/* 4. RESPONSIVE ADJUSTMENTS */
+/* ========================================================== */
+
+@media (max-width: 768px) {
+    .section-title, .about-content {
+        padding: 0 2rem; 
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .about-image-column {
+        max-width: 100%;
+        order: -1; /* Move image/cube to the top on mobile */
+        /* Center image wrapper on mobile */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profile-image {
+        /* Ensure image scales down nicely on small screens */
+        max-width: 250px;
+        height: 250px;
+    }
+
+    .skills-list {
+        /* On small phones, stack skills in one column */
+        grid-template-columns: 1fr; 
+        width: 100%;
+        max-width: 300px; /* Optional: limit width on small screens */
+        margin: 0 auto;
+    }
+}    

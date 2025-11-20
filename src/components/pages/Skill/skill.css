@@ -1,0 +1,102 @@
+/* src/components/pages/Skill/Skill.css */
+
+.skill-section {
+    width: 100%;
+    padding: 100px 0;
+    min-height: 80vh;
+    color: #ccd6f6;
+    background-color: #0a192f;
+}
+
+/* Scoped Title Styles */
+.skill-section .section-title {
+    max-width: 1000px;
+    margin: 0 auto 40px auto; 
+    padding: 0 4rem; 
+    
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #e6f1ff;
+}
+
+.skill-section .number {
+    color: #64ffda; 
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.skill-content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    text-align: center;
+}
+
+.skill-pitch {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    color: #8892b0;
+}
+
+/* Skill Grid Layout */
+.skill-grid {
+    display: grid;
+    /* Create three columns on desktop, allowing minimum width of 300px per column */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    text-align: left;
+}
+
+.skill-category {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #112a45; /* Slightly lighter background for the card */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px); /* Subtle lift effect on hover */
+    box-shadow: 0 8px 15px rgba(100, 255, 218, 0.15);
+}
+
+.category-title {
+    color: #64ffda; /* Accent color for the title */
+    font-size: 1.5rem;
+    border-bottom: 2px solid #334e68;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns within each card */
+    gap: 10px;
+}
+
+.skill-item {
+    font-size: 1rem;
+    color: #ccd6f6;
+    display: flex;
+    align-items: center;
+}
+
+.skill-icon {
+    color: #64ffda; 
+    margin-right: 8px;
+    font-size: 0.8rem;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .skill-content-wrapper {
+        padding: 0 2rem;
+    }
+    .skill-grid {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+    }
+}
