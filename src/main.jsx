@@ -1,12 +1,17 @@
-// inside src/main.jsx (or wherever you have BrowserRouter)
+// src/main.jsx
 
-import { BrowserRouter } from 'react-router-dom'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+// ⬇️ CHANGE 1: Import HashRouter instead of BrowserRouter
+import { HashRouter } from 'react-router-dom'; 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // ADD THIS LINE BELOW 👇
-  <BrowserRouter basename="/Myportfolio">
-    <App />
-  </BrowserRouter>,
-)
+  <React.StrictMode>
+    {/* ⬇️ CHANGE 2: Wrap App with HashRouter */}
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </React.StrictMode>,
+);
