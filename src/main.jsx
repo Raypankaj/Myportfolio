@@ -1,17 +1,12 @@
-// src/main.jsx
+// inside src/main.jsx (or wherever you have BrowserRouter)
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-// ⬅️ Import the Router Component
-import { BrowserRouter } from 'react-router-dom'; 
+import { BrowserRouter } from 'react-router-dom'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    {/* ⬅️ Wrap the App component with BrowserRouter */}
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+  // ADD THIS LINE BELOW 👇
+  <BrowserRouter basename="/Myportfolio">
+    <App />
+  </BrowserRouter>,
+)
