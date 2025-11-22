@@ -161,3 +161,35 @@ a[href="/ai-config"]:hover {
     object-fit: contain;
     object-position: center;
 }
+
+/* ========================================================== */
+/* CORRECTED LOGO STYLE */
+/* ========================================================== */
+
+.logo-image {
+    /* 1. Height Control: 
+       Your navbar is 80px tall with padding. 
+       We use max-height to ensure it fits without stretching the navbar. */
+    height: auto; 
+    max-height: 50px; /* Fits comfortably within the 80px navbar */
+
+    /* 2. Width Control: 
+       'auto' ensures the logo keeps its natural shape (aspect ratio) 
+       so it doesn't look squashed or stretched. */
+    width: auto; 
+
+    /* 3. Image rendering */
+    object-fit: contain;
+    object-position: left center; /* Aligns logo to the left */
+}
+
+/* OPTIONAL: Mobile Specific Adjustments */
+@media (max-width: 768px) {
+    .logo-image {
+        max-height: 40px; /* Slightly smaller on mobile devices */
+    }
+    
+    .navbar {
+        padding: 0.5rem 1rem; /* Reduce padding on small screens to save space */
+    }
+}
