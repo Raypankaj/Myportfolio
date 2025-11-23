@@ -3,16 +3,18 @@ import './About.css';
 import { Link } from 'react-router-dom';
 import { db } from '../../../firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
- import profilePic from '../../../assets/profile.png'; // Ensure the path is correct
-function About() {
-    // Ensure the path is correct
+import profilePic from '../../../assets/profile.png';
 
+function About() {
     const [reviews, setReviews] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [accessCode, setAccessCode] = useState('');
     const [isVerified, setIsVerified] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const [newReview, setNewReview] = useState({ name: '', role: '', text: '' });
+
+    // --- NEW: State to check if it's YOU (Developer) ---
+    const [isDevMode, setIsDevMode] = useState(false);
 
     const skills = [
         { id: 'js-es6', name: 'Modern JavaScript (ES6+)' },
@@ -22,6 +24,13 @@ function About() {
     ];
 
     useEffect(() => {
+        // --- 1. CHECK IF USER IS ON LOCALHOST (YOUR DESK) ---
+        const hostname = window.location.hostname;
+        if (hostname === "localhost" || hostname === "127.0.0.1") {
+            setIsDevMode(true); // Show buttons only on your computer
+        }
+
+        // --- 2. FETCH REVIEWS ---
         const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const reviewsData = snapshot.docs.map(doc => ({
@@ -37,7 +46,6 @@ function About() {
 
     const handleVerification = () => {
         const SECRET_CODE = "PANKAJ-CLIENT"; 
-
         if (accessCode === SECRET_CODE) {
             setIsVerified(true);
             setErrorMsg('');
@@ -157,13 +165,16 @@ function About() {
                                     <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
                                         <button onClick={handleVerification} className="cta-button">Verify</button>
                                         
-                                        <button 
-                                            type="button" 
-                                            onClick={fillTestCode}
-                                            style={{background: 'none', border: 'none', color: '#8892b0', cursor: 'pointer', fontSize: '0.8rem', textDecoration: 'underline'}}
-                                        >
-                                            Auto-fill Code
-                                        </button>
+                                        {/* --- ONLY SHOW AUTO-FILL IF DEV MODE --- */}
+                                        {isDevMode && (
+                                            <button 
+                                                type="button" 
+                                                onClick={fillTestCode}
+                                                style={{background: 'none', border: 'none', color: '#8892b0', cursor: 'pointer', fontSize: '0.8rem', textDecoration: 'underline'}}
+                                            >
+                                                Auto-fill Code
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             ) : (
@@ -171,21 +182,24 @@ function About() {
                                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem'}}>
                                         <h4 style={{margin: 0}}>Share your experience</h4>
                                         
-                                        <button 
-                                            type="button"
-                                            onClick={fillTestData}
-                                            style={{
-                                                background: '#172a45', 
-                                                border: '1px solid #64ffda', 
-                                                color: '#64ffda', 
-                                                padding: '4px 8px', 
-                                                borderRadius: '4px', 
-                                                cursor: 'pointer', 
-                                                fontSize: '0.75rem'
-                                            }}
-                                        >
-                                            Fill Test Data
-                                        </button>
+                                        {/* --- ONLY SHOW FILL TEST DATA IF DEV MODE --- */}
+                                        {isDevMode && (
+                                            <button 
+                                                type="button"
+                                                onClick={fillTestData}
+                                                style={{
+                                                    background: '#172a45', 
+                                                    border: '1px solid #64ffda', 
+                                                    color: '#64ffda', 
+                                                    padding: '4px 8px', 
+                                                    borderRadius: '4px', 
+                                                    cursor: 'pointer', 
+                                                    fontSize: '0.75rem'
+                                                }}
+                                            >
+                                                Fill Test Data
+                                            </button>
+                                        )}
                                     </div>
 
                                     <input 

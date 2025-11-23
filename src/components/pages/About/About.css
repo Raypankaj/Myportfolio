@@ -1,117 +1,144 @@
+/* =========================================
+   1. SECTION LAYOUT & TYPOGRAPHY
+   ========================================= */
 .about-section {
-    width: 100%;
-    padding: 100px 0;
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
     min-height: 80vh;
-    color: #ccd6f6;
-    background-color: #0a192f;
+    color: #8892b0;
+    background-color: #0a192f; /* Dark Navy Background */
 }
 
+/* Section Title Style */
 .section-title {
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto 40px auto;
-    padding: 0 4rem;
     display: flex;
     align-items: center;
     font-size: clamp(1.5rem, 5vw, 2rem);
-    color: #e6f1ff;
+    color: #e6f1ff; /* Lightest Slate */
+    margin: 0 auto 40px auto;
+    width: 100%;
+    max-width: 1000px;
 }
 
 .section-title .number {
-    color: #64ffda;
+    color: #64ffda; /* Green Accent */
     font-size: 1.5rem;
     margin-right: 10px;
+    font-family: monospace;
 }
 
+/* Main Content Grid (Text + Image) */
 .about-content {
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 4rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 2fr; /* Text takes 60%, Image takes 40% */
     gap: 50px;
-    align-items: flex-start;
+    align-items: start;
+    margin-bottom: 80px; 
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.about-text-column {
-    flex: 2;
-    line-height: 1.6;
-}
-
+/* Text Column Typography */
 .about-text-column p {
     margin-bottom: 15px;
     color: #8892b0;
     font-size: 1rem;
+    line-height: 1.6;
 }
 
-.about-image-column {
-    flex: 1;
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin-top: 20px;
-}
-
-.cube-wrapper {
-    width: 100%;
-    max-width: 300px;
-    aspect-ratio: 1 / 1;
-    height: auto;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 0 auto;
-    border: 2px solid #64ffda;
-    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
-    transition: transform 0.3s ease-in-out;
-}
-
-.cube-wrapper canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.profile-image {
-    width: 100%;
-    max-width: 300px;
-    aspect-ratio: 1 / 1;
-    height: auto;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    border: 2px solid #64ffda;
-}
-
+/* =========================================
+   2. SKILLS LIST
+   ========================================= */
 .skills-heading {
     margin-top: 25px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: #e6f1ff;
     font-size: 1.2rem;
 }
 
 .skills-list {
     display: grid;
-    gap: 5px 20px;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+    gap: 10px;
     padding: 0;
+    margin-top: 20px;
     list-style: none;
 }
 
-.skills-list li {
-    color: #8892b0;
+.skill-item {
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: #ccd6f6;
+    display: flex;
+    align-items: center;
 }
 
-.skills-list .list-icon {
+.skill-icon {
     color: #64ffda;
-    font-size: 0.8rem;
-    margin-right: 5px;
+    margin-right: 8px;
+    font-size: 14px;
 }
 
+.about-cta-buttons {
+    margin-top: 30px;
+}
+
+/* =========================================
+   3. PROFILE IMAGE
+   ========================================= */
+.about-image-column {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    border-radius: 50%;
+    width: 30vw;
+    height: 30vw;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border: 2px solid #64ffda;
+    /*GreenBorder*/:;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image {
+    width: 28vw;
+    height: 28vw;
+    display: block;
+    filter: grayscale(100%) contrast(1);
+    /*Black&WhiteEffect*/transition: filter 0.3s;
+    border-radius:50% ;
+    object-fit: cover;
+    -webkit-border-radius:50% ;
+    -moz-border-radius:50% ;
+    -ms-border-radius:50% ;
+    -o-border-radius:50% ;
+}
+
+.profile-image-wrapper:hover .profile-image {
+    filter: none; /* Color on Hover */
+}
+
+/* =========================================
+   4. REVIEWS SECTION
+   ========================================= */
 .reviews-container {
     max-width: 1000px;
-    width: 100%;
-    margin: 80px auto 0 auto;
-    padding: 0 4rem;
+    margin: 0 auto;
+    border-top: 1px solid #233554;
+    padding-top: 60px;
 }
 
 .reviews-header-group {
@@ -119,58 +146,45 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .reviews-heading {
-    margin-bottom: 0;
-    color: #ccd6f6;
     font-size: 1.8rem;
+    color: #ccd6f6;
+    margin: 0;
+    position: relative;
 }
 
-.reviews-heading::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: #64ffda;
-    margin: 10px 0 0;
-}
-
+/* Add Button */
 .add-review-btn {
     background: transparent;
-    color: #64ffda;
     border: 1px solid #64ffda;
+    color: #64ffda;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    font-family: inherit;
-    transition: all 0.3s ease;
+    font-family: monospace;
+    transition: 0.3s;
 }
 
 .add-review-btn:hover {
     background: rgba(100, 255, 218, 0.1);
 }
 
+/* --- Review Form & Modal --- */
 .review-form-wrapper {
-    max-width: 600px;
-    margin: 0 auto 40px auto;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.review-form-card {
-    background-color: #112240;
-    padding: 2rem;
-    border-radius: 8px;
-    position: relative;
+    background: #112240; /* Lighter Navy */
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 40px;
     border: 1px solid #233554;
+    position: relative;
+    animation: slideDown 0.3s ease-out;
 }
 
 .close-form-btn {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
     background: none;
     border: none;
@@ -179,26 +193,19 @@
     cursor: pointer;
 }
 
-.review-form-card h4 {
-    color: #e6f1ff;
-    margin-bottom: 1rem;
-}
+.close-form-btn:hover { color: #fff; }
 
-.verification-step p {
-    font-size: 0.9rem;
-    color: #8892b0;
-    margin-bottom: 1rem;
-}
-
+/* Form Inputs */
 .form-input {
     width: 100%;
-    background-color: #0a192f;
+    background: #0a192f;
     border: 1px solid #233554;
     color: #ccd6f6;
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
     border-radius: 4px;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -211,12 +218,53 @@
     resize: vertical;
 }
 
+/* Buttons */
+.cta-button {
+    background-color: #84a8a0;
+    color: #0a192f;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10vw;
+    -webkit-border-radius: 10vw;
+    -moz-border-radius: 10vw;
+    -ms-border-radius: 10vw;
+    -o-border-radius: 10vw;
+}
+
+.cta-button:hover {
+    background-color: #4cc9aa;
+}
+
+.cta-button.secondary {
+    background: transparent;
+    border: 1px solid #64ffda;
+    color: #64ffda;
+}
+
+/* Verification Step */
+.verification-step {
+    text-align: center;
+    padding: 10px;
+}
+.verification-step h4 { color: #e6f1ff; margin-bottom: 10px; }
+.verification-step p { margin-bottom: 20px; font-size: 0.9rem; }
+
 .error-msg {
     color: #ff6b6b;
     font-size: 0.9rem;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
 }
 
+/* =========================================
+   5. REVIEWS GRID (CARDS)
+   ========================================= */
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -225,10 +273,10 @@
 
 .review-card {
     background-color: #112240;
-    padding: 30px;
+    padding: 25px;
     border-radius: 8px;
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     position: relative;
     border: 1px solid transparent;
 }
@@ -239,24 +287,19 @@
 }
 
 .review-icon {
-    font-size: 3rem;
+    font-size: 2rem;
     color: #64ffda;
-    opacity: 0.3;
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-family: sans-serif;
+    opacity: 0.5;
+    margin-bottom: 10px;
+    line-height: 1;
 }
 
 .review-text {
-    margin-top: 15px;
-    margin-bottom: 20px;
+    font-size: 0.95rem;
     color: #a8b2d1;
     font-style: italic;
-    line-height: 1.5;
-    font-size: 0.95rem;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 
 .reviewer-info {
@@ -274,78 +317,57 @@
 .reviewer-role {
     color: #64ffda;
     font-size: 0.8rem;
+    font-family: monospace;
     display: block;
     margin-top: 5px;
 }
 
+/* =========================================
+   6. ANIMATIONS & RESPONSIVENESS
+   ========================================= */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 900px) {
-    .about-content, .section-title {
-        padding: 0 2rem;
-    }
-    
     .about-content {
+        padding: 0;
         gap: 30px;
     }
 }
 
 @media (max-width: 768px) {
     .about-section {
-        padding: 60px 0; 
+        padding: 60px 20px;
     }
 
     .section-title {
-        padding: 0 1.5rem;
         justify-content: center;
-    }
-
-    .about-content {
-        padding: 0 1.5rem; 
-        flex-direction: column;
-        align-items: center;
         text-align: center;
     }
-    
+
+    /* Stack Text and Image on Mobile */
+    .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
     .about-image-column {
-        order: -1;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 20px;
-        max-width: 250px; 
+        order: -1; /* Move image to top */
+        margin-bottom: 30px;
+        width: 70%; /* Smaller image on mobile */
     }
 
     .skills-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px 20px;
-    }
-    
-    .skills-list li {
-        text-align: left;
-        width: 140px;
+        text-align: left; /* Keep skills aligned left even if text is centered */
+        max-width: 300px;
+        margin: 20px auto;
     }
 
-    .reviews-container {
-        padding: 0 1.5rem;
-        margin-top: 60px;
-    }
-    
     .reviews-header-group {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
         text-align: center;
     }
-    
-    .reviews-heading::after {
-        margin: 10px auto;
-    }
-
-    .review-card {
-        padding: 20px;
-    }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
