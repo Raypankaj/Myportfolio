@@ -14,7 +14,7 @@ import Contact from './components/pages/contact/contact';
 import Skill from './components/pages/Skill/Skill';
 import AIAnswerComponent from './components/pages/AIAnswerComponent/AIAnswerComponent';
 import Projects from './components/pages/projects/project'; // Using component name Projects
-
+import AdminDashboard from './components/pages/Admin/AdminDashboard';
 function App() {
   return (
     <div className="App">
@@ -45,6 +45,7 @@ function App() {
           <Route path="*" element={<div>404 Page Not Found</div>} />
           {/* ... other routes ... */}
           <Route path="/ai-answer" element={<AIAnswerComponent />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           {/* ... other routes ... */}
 
         </Routes>

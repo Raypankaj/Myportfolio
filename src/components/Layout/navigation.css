@@ -1,195 +1,163 @@
 /* ========================================================== */
-/* 1. GLOBAL LAYOUT & BASE STYLES (.navbar) */
+/* 1. GLOBAL LAYOUT & BASE STYLES */
 /* ========================================================== */
 
 .navbar {
-    /* 📦 Layout & Positioning */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    
-    /* 🖼️ Appearance */
-    background-color: #1A1F26; /* Dark background */
-    color: white;
-    padding: 1rem 2rem;
-    
-    /* 📏 Height & Transition for Smart Hiding */
-    height: 80px; /* Crucial for translateY calculation */
-    transition: transform 0.3s ease-in-out; 
+  /* 📦 Layout & Positioning */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Crucial for layout stability */
+  z-index: 1000;
+  
+  /* 🖼️ Appearance */
+  background-color: #1A1F26; /* Dark slate background */
+  color: white;
+  padding: 0 40px; /* Horizontal padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+  /* 📏 Transition for Smart Hiding */
+  transition: transform 0.3s ease-in-out; 
 }
 
 /* ========================================================== */
-/* 2. MODIFIER / UTILITY CLASSES (SMART-HIDING LOGIC) */
+/* 2. SMART-HIDING LOGIC */
 /* ========================================================== */
 
 .navbar.hidden {
-    /* Hides the navbar by moving it up its full height */
-    transform: translateY(-80px); 
+  /* Hides the navbar by sliding it up exactly its height */
+  transform: translateY(-80px); 
 }
 
 /* ========================================================== */
-/* 3. ELEMENT STYLES */
+/* 3. LOGO STYLES */
 /* ========================================================== */
 
-/* --- Logo Section --- */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+}
 
 .navbar-logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    transition: color 0.3s ease, transform 0.2s ease;
+  display: flex; /* Ensures anchor wraps image correctly */
+  transition: transform 0.2s ease;
 }
 
 .navbar-logo a:hover {
-    color: #00bcd4; /* Hover color */
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .logo-image {
-    /* Ensure height and width are manageable for a logo in a navigation bar */
-    height: 40px; /* Reduced from 20vh for a typical navbar height */
-    width: auto; 
-    object-fit: contain;
-    object-position: center;
+  /* Corrected logic from your snippet */
+  height: auto; 
+  max-height: 50px; /* Fits comfortably within 80px navbar */
+  width: auto;      /* Maintains aspect ratio */
+  object-fit: contain;
+  object-position: left center;
 }
 
-/* --- Navigation Links List --- */
+/* ========================================================== */
+/* 4. NAVIGATION LINKS */
+/* ========================================================== */
 
 .navbar-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 20px; /* Uses gap for spacing, cleaner than margin on children */
-    margin: 0;
-    padding: 0;
-    margin-right: 3rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Spacing between items */
+  margin: 0;
+  padding: 0;
 }
 
-.navbar-links li {
-    /* Remove redundant list-style as it's set on the parent */
-    margin: 0; /* Let the parent's gap handle spacing */
-}
-
-/* --- General Link Styles (Applies to all <a> tags within navbar-links) --- */
-
+/* General Link Styling */
 .navbar-links a {
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease; 
-    /* These three lines are often unnecessary if browser prefixes are handled by a tool like Autoprefixer */
-    /* -webkit-border-radius: 30px; */
-    /* -moz-border-radius: 30px; */
-    /* -ms-border-radius: 30px; */
-    /* -o-border-radius: 30px; */
+  color: #ccd6f6; /* Off-white text */
+  text-decoration: none;
+  font-size: 16px;
+  font-family: 'Calibre', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .navbar-links a:hover {
-    color: #00bcd4;
-    transform: translateY(-2px); /* Slight lift effect */
+  color: #00bcd4; /* Cyan hover effect */
+  transform: translateY(-2px); /* Slight lift */
 }
-
 
 /* ========================================================== */
-/* 4. BUTTON & SPECIAL LINKS (CTA & AI Links) */
+/* 5. BUTTONS & SPECIAL LINKS */
 /* ========================================================== */
 
-/* --- Call To Action (Contact) --- */
-
-.cta-button {
-    background-color: #e91e63;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-    border: 2px solid transparent;
-}
-
-.cta-button:hover {
-    background-color: transparent;
-    color: #e91e63 !important; /* Use !important only if needed to override a specific link color */
-    border-color: #e91e63;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(233, 30, 99, 0.6);
-}
-
-/* --- AI Feature Links --- */
-
+/* --- AI Feature Links (Specific Colors) --- */
 .ai-link {
-    text-decoration: none;
-    padding: 10px 15px; 
-    font-weight: 600; 
-    border-radius: 4px;
-    transition: all 0.3s ease;
+  font-weight: 600; 
 }
 
-/* 💡 AI Question Answering (Specific override using attribute selector) */
+/* AI Answer: Cyan/Teal Style */
 a[href="/ai-answer"] {
-    color: #20c997; /* Bright cyan */
-    border: 1px solid #20c997;
+  color: #20c997; 
 }
 
 a[href="/ai-answer"]:hover {
-    background-color: #20c997;
-    color: #1a1a1a;
+  color: #64ffda;
+  text-shadow: 0 0 8px rgba(32, 201, 151, 0.4);
 }
 
-/* ⚙️ AI Configuration/Integration (Specific override using attribute selector) */
+/* AI Config: Purple Style (if you enable it later) */
 a[href="/ai-config"] {
-    color: #ae48ff; /* Purple */
-    border: 1px solid #ae48ff;
+  color: #ae48ff; 
 }
 
-a[href="/ai-config"]:hover {
-    background-color: #ae48ff;
-    color: #1a1a1a;
+/* --- Call To Action (Contact Button) --- */
+.cta-button {
+  background-color: transparent;
+  color: #e91e63 !important; /* Pink text */
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: 1px solid #e91e63; /* Pink border */
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
 }
 
-/* --- Logo Section --- */
-
-/* ... other logo styles ... */
-
-.logo-image {
-    /* ENHANCED SIZE FOR CLARITY */
-    height: 20vh; /* Increased from 40px */
-    width: 6ovw; /* Set a fixed width to prevent distortion */
-    object-fit: contain;
-    object-position: center;
+.cta-button:hover {
+  background-color: rgba(233, 30, 99, 0.1); /* Subtle pink background tint */
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(233, 30, 99, 0.4); /* Pink glow */
 }
 
 /* ========================================================== */
-/* CORRECTED LOGO STYLE */
+/* 6. RESPONSIVE DESIGN (Mobile/Tablet) */
 /* ========================================================== */
 
-.logo-image {
-    /* 1. Height Control: 
-       Your navbar is 80px tall with padding. 
-       We use max-height to ensure it fits without stretching the navbar. */
-    height: auto; 
-    max-height: 50px; /* Fits comfortably within the 80px navbar */
-
-    /* 2. Width Control: 
-       'auto' ensures the logo keeps its natural shape (aspect ratio) 
-       so it doesn't look squashed or stretched. */
-    width: auto; 
-
-    /* 3. Image rendering */
-    object-fit: contain;
-    object-position: left center; /* Aligns logo to the left */
-}
-
-/* OPTIONAL: Mobile Specific Adjustments */
 @media (max-width: 768px) {
-    .logo-image {
-        max-height: 40px; /* Slightly smaller on mobile devices */
-    }
-    
-    .navbar {
-        padding: 0.5rem 1rem; /* Reduce padding on small screens to save space */
-    }
+  .navbar {
+    height: 70px; 
+    padding: 0 20px;
+  }
+
+  .navbar.hidden {
+    transform: translateY(-70px);
+  }
+
+  .logo-image {
+    max-height: 40px; /* Smaller logo on mobile */
+  }
+
+  .navbar-links {
+    gap: 15px;
+  }
+
+  .navbar-links a {
+    font-size: 14px;
+  }
+  
+  .cta-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
 }
