@@ -103,7 +103,7 @@
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     border: 2px solid #64ffda;
-    /*GreenBorder*/:;
+    
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;

@@ -1,4 +1,6 @@
-/* --- ADMIN LOGIN STYLES --- */
+/* =========================================
+   1. ADMIN LOGIN STYLES
+   ========================================= */
 .admin-login-container {
     height: 100vh;
     display: flex;
@@ -46,7 +48,9 @@
     background-color: #52d1b1;
 }
 
-/* --- DASHBOARD STYLES --- */
+/* =========================================
+   2. DASHBOARD LAYOUT
+   ========================================= */
 .admin-dashboard {
     min-height: 100vh;
     padding: 100px 40px;
@@ -77,13 +81,18 @@
     background-color: rgba(255, 107, 107, 0.1);
 }
 
-.status-text {
-    color: #8892b0;
-    margin-bottom: 20px;
+.section-header {
+    color: #64ffda;
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
+/* =========================================
+   3. TABLE STYLES
+   ========================================= */
 .table-responsive {
     overflow-x: auto;
+    margin-bottom: 30px;
 }
 
 .client-table {
@@ -98,6 +107,7 @@
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #233554;
+    vertical-align: top; /* Ensures long text aligns correctly */
 }
 
 .client-table th {
@@ -110,6 +120,119 @@
     background-color: #172a45;
 }
 
+/* Completed/Closed Row Style */
+.row-done {
+    background-color: #0d1624;
+    opacity: 0.8;
+    border-left: 3px solid #10b981;
+}
+
+/* =========================================
+   4. INTERACTION HISTORY BOX (NEW)
+   ========================================= */
+.history-container {
+    max-height: 100px; /* Limits height so table doesn't get huge */
+    overflow-y: auto;  /* Adds scrollbar if many attempts */
+    background-color: #0f1c30;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #233554;
+    margin-top: 5px;
+}
+
+.history-entry {
+    font-size: 0.8rem;
+    color: #ccd6f6;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #233554;
+}
+
+.history-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Scrollbar styling for history box */
+.history-container::-webkit-scrollbar {
+    width: 4px;
+}
+.history-container::-webkit-scrollbar-thumb {
+    background: #233554;
+    border-radius: 2px;
+}
+
+/* =========================================
+   5. BADGES & BUTTONS
+   ========================================= */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.status-new { background-color: #3b82f6; color: white; }
+.status-success { background-color: #10b981; color: white; }
+.status-fail { background-color: #ef4444; color: white; }
+
+.note-box {
+    background-color: rgba(100, 255, 218, 0.1);
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    border-left: 3px solid #64ffda;
+}
+
+.time-box {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    border-left: 3px solid #f59e0b;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-process {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-disabled {
+    background-color: #4b5563;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border: 1px solid #374151;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.delete-btn-icon {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .delete-btn {
     background-color: #ff6b6b;
     color: white;
@@ -120,15 +243,143 @@
     font-size: 0.8rem;
 }
 
-.delete-btn:hover {
-    background-color: #ff4c4c;
+/* =========================================
+   6. MODAL / POPUP STYLES
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(3px);
 }
 
+.admin-modal {
+    background-color: #112240;
+    color: #ccd6f6;
+    border: 1px solid #233554;
+    text-align: left;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.admin-modal h3 {
+    margin-top: 0;
+    color: #64ffda;
+}
+
+.admin-modal label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #ccd6f6;
+    font-size: 0.9rem;
+}
+
+.admin-textarea {
+    width: 100%;
+    background-color: #0a192f;
+    border: 1px solid #233554;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.admin-date-input {
+    width: 100%;
+    padding: 10px;
+    background-color: #0a192f;
+    color: white;
+    border: 1px solid #233554;
+    border-radius: 4px;
+}
+
+/* Radio Button Cards (Outcome Selector) */
+.outcome-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.outcome-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #233554;
+    border-radius: 6px;
+    background-color: #0a192f;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.outcome-option:hover {
+    border-color: #64ffda;
+}
+
+.outcome-option.selected {
+    background-color: rgba(100, 255, 218, 0.1);
+    border-color: #64ffda;
+    color: #64ffda;
+    font-weight: bold;
+}
+
+.outcome-inputs {
+    background-color: #172a45;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 3px solid #64ffda;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    background-color: transparent;
+    border: 1px solid #ccd6f6;
+    color: #ccd6f6;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background-color: #64ffda;
+    border: none;
+    color: #0a192f;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .admin-dashboard {
         padding: 80px 20px;
     }
-    
     .client-table th, .client-table td {
         padding: 10px;
         font-size: 0.9rem;

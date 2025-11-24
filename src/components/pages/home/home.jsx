@@ -24,7 +24,7 @@ function Home() {
                     
                     {/* ➡️ CTA Improvement: Ensure the link is functional */}
                     {/* Use Link component if linking internally, or a standard <a> tag for hash links */}
-                    <a href="/projects" className="cta-button">
+                    <a href="http://localhost:5173/projects#/projects" className="cta-button">
                         View My Work
                     </a>
                 </div>

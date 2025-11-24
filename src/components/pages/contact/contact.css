@@ -1,8 +1,47 @@
+/* =========================================
+   MAIN CONTAINER & VIDEO SETUP
+   ========================================= */
+
 .contact-container {
+    position: relative; /* REQUIRED: Keeps video inside this section */
     padding: 100px 20px;
-    background-color: #0a192f;
+    background-color: #0a192f; /* Fallback color if video fails */
     min-height: 100vh;
     color: #ccd6f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; /* Prevents video from spilling out */
+}
+
+/* --- NEW: Video Background --- */
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the entire screen */
+    z-index: 0;
+}
+
+/* --- NEW: Blue Overlay (#0A192F with opacity) --- */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* This is your theme color #0A192F at 85% opacity */
+    /* background-color: rgba(10, 25, 47, 0.85);  */
+    z-index: 1;
+}
+
+/* --- NEW: Content Wrapper (Sits on top of video) --- */
+.contact-content {
+    position: relative;
+    z-index: 2; /* Sits ON TOP of the video and overlay */
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,16 +53,33 @@
     font-size: 2rem;
 }
 
+/* =========================================
+   FORM STYLES (Glass Effect Added)
+   ========================================= */
+
 .contact-form-card {
-    background-color: #112240;
+    /*Madeslightlytransparent(0.95)sovideoshowsthroughfaintly*/background-color: rgba(17, 34, 64, 0.95);
     padding: 40px;
     border-radius: 8px;
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px;
     box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
     border: 1px solid #233554;
+    backdrop-filter: blur(5px);
+     /* Adds the glass blur effect */
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
+.form-group input{
+    border-radius: 5vw;
+    -webkit-border-radius: 5vw;
+    -moz-border-radius: 5vw;
+    -ms-border-radius: 5vw;
+    -o-border-radius: 5vw;
+}
 .contact-form label {
     display: block;
     margin-bottom: 8px;
@@ -33,7 +89,8 @@
 
 .contact-input {
     width: 100%;
-    background-color: #0a192f;
+    /* Made slightly transparent (0.7) */
+    background-color: rgba(10, 25, 47, 0.7); 
     border: 1px solid #233554;
     color: #ccd6f6;
     padding: 12px;
@@ -63,6 +120,11 @@
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s ease;
+    border-radius: 3vw;
+    -webkit-border-radius: 3vw;
+    -moz-border-radius: 3vw;
+    -ms-border-radius: 3vw;
+    -o-border-radius: 3vw;
 }
 
 .contact-btn:hover {
@@ -75,6 +137,7 @@
 }
 
 @media (max-width: 600px) {
+    
     .contact-container {
         padding: 80px 20px;
     }
@@ -83,3 +146,91 @@
         padding: 20px;
     }
 }
+
+/* =========================================
+   MODAL / POPUP STYLES (Unchanged)
+   ========================================= */
+
+/* The dark background behind the modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px); 
+}
+
+/* The white box */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-title {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.date-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border-radius: 3vw;
+    -webkit-border-radius: 3vw;
+    -moz-border-radius: 3vw;
+    -ms-border-radius: 3vw;
+    -o-border-radius: 3vw;
+}
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+.confirm-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    border-radius: 3vw;
+}
+.confirm-btn:hover {
+    background-color: #218838;
+}
+

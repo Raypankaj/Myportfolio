@@ -2,18 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './About.css';
 import { Link } from 'react-router-dom';
 import { db } from '../../../firebase';
-import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, where, getDocs } from 'firebase/firestore';
 import profilePic from '../../../assets/profile.png';
 
 function About() {
     const [reviews, setReviews] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
+    
+    // --- Verification States ---
+    const [verifyMobile, setVerifyMobile] = useState(''); // New input for lookup
     const [accessCode, setAccessCode] = useState('');
     const [isVerified, setIsVerified] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    const [verifying, setVerifying] = useState(false);
+
+    // --- Review Form State ---
     const [newReview, setNewReview] = useState({ name: '', role: '', text: '' });
 
-    // --- NEW: State to check if it's YOU (Developer) ---
     const [isDevMode, setIsDevMode] = useState(false);
 
     const skills = [
@@ -24,13 +29,11 @@ function About() {
     ];
 
     useEffect(() => {
-        // --- 1. CHECK IF USER IS ON LOCALHOST (YOUR DESK) ---
         const hostname = window.location.hostname;
         if (hostname === "localhost" || hostname === "127.0.0.1") {
-            setIsDevMode(true); // Show buttons only on your computer
+            setIsDevMode(true);
         }
 
-        // --- 2. FETCH REVIEWS ---
         const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const reviewsData = snapshot.docs.map(doc => ({
@@ -44,14 +47,71 @@ function About() {
         return () => unsubscribe();
     }, []);
 
-    const handleVerification = () => {
-        const SECRET_CODE = "PANKAJ-CLIENT"; 
-        if (accessCode === SECRET_CODE) {
-            setIsVerified(true);
-            setErrorMsg('');
-        } else {
-            setErrorMsg('❌ Invalid Access Code. Please contact Pankaj for a code.');
+    // --- NEW: LOGIC TO VERIFY USER FROM FIREBASE ---
+    const handleVerification = async () => {
+        setErrorMsg('');
+        setVerifying(true);
+
+        try {
+            // 1. Check if inputs are filled
+            if (!verifyMobile || !accessCode) {
+                setErrorMsg('⚠️ Please enter both Mobile Number and Access Code.');
+                setVerifying(false);
+                return;
+            }
+
+            // 2. Query Firestore for the client with this mobile number
+            const clientsRef = collection(db, "clients");
+            const q = query(clientsRef, where("mobile", "==", verifyMobile));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                setErrorMsg('❌ Mobile number not found in our records.');
+                setVerifying(false);
+                return;
+            }
+
+            // 3. Check the password logic (Company@Last4)
+            let matchFound = false;
+            let clientData = null;
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                // Ensure company exists, otherwise fallback or fail
+                const companyName = data.company || ""; 
+                const mobileStr = data.mobile || "";
+                
+                if (mobileStr.length >= 4) {
+                    const lastFour = mobileStr.slice(-4);
+                    // Construct the expected password: Company@1234
+                    const expectedPassword = `${companyName}@${lastFour}`;
+
+                    // Compare (Trim spaces to be safe)
+                    if (accessCode.trim() === expectedPassword.trim()) {
+                        matchFound = true;
+                        clientData = data;
+                    }
+                }
+            });
+
+            if (matchFound) {
+                setIsVerified(true);
+                // Pre-fill the form with their data for convenience
+                setNewReview({
+                    name: clientData.name || '',
+                    role: clientData.company || '',
+                    text: ''
+                });
+            } else {
+                setErrorMsg('❌ Incorrect Access Code. Format: CompanyName@Last4Digits');
+            }
+
+        } catch (error) {
+            console.error("Verification Error:", error);
+            setErrorMsg('⚠️ System error. Please try again later.');
         }
+
+        setVerifying(false);
     };
 
     const handleSubmitReview = async (e) => {
@@ -70,23 +130,12 @@ function About() {
             setIsFormOpen(false);
             setIsVerified(false);
             setAccessCode('');
+            setVerifyMobile('');
             alert("Thank you! Your review has been added.");
         } catch (error) {
             console.error("Error adding review: ", error);
             alert("Error submitting review. Please try again.");
         }
-    };
-
-    const fillTestCode = () => {
-        setAccessCode("PANKAJ-CLIENT");
-    };
-
-    const fillTestData = () => {
-        setNewReview({
-            name: "Test User",
-            role: "QA Engineer",
-            text: "This is a test review to check the database connection. The UI looks great and the submission process is smooth!"
-        });
     };
 
     return (
@@ -152,27 +201,42 @@ function About() {
                             {!isVerified ? (
                                 <div className="verification-step">
                                     <h4>Client Verification</h4>
-                                    <p>To ensure authenticity, please enter the Access Code provided after your service.</p>
+                                    <p>Please enter your registered details to write a review.</p>
+                                    
+                                    {/* 1. Mobile Input for Lookup */}
                                     <input 
-                                        type="text" 
-                                        placeholder="Enter Access Code (e.g. PANKAJ-CLIENT)"
+                                        type="tel" 
+                                        placeholder="Registered Mobile Number"
+                                        value={verifyMobile}
+                                        onChange={(e) => setVerifyMobile(e.target.value)}
+                                        className="form-input"
+                                        style={{marginBottom: '10px'}}
+                                    />
+
+                                    {/* 2. Password Input */}
+                                    <input 
+                                        type="password" 
+                                        placeholder="Access Code (Company@Last4)"
                                         value={accessCode}
                                         onChange={(e) => setAccessCode(e.target.value)}
                                         className="form-input"
                                     />
+                                    
                                     {errorMsg && <p className="error-msg">{errorMsg}</p>}
                                     
-                                    <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
-                                        <button onClick={handleVerification} className="cta-button">Verify</button>
+                                    <div style={{display: 'flex', gap: '10px', alignItems: 'center', marginTop: '15px'}}>
+                                        <button onClick={handleVerification} className="cta-button" disabled={verifying}>
+                                            {verifying ? 'Verifying...' : 'Verify Identity'}
+                                        </button>
                                         
-                                        {/* --- ONLY SHOW AUTO-FILL IF DEV MODE --- */}
+                                        {/* Dev Mode Skip */}
                                         {isDevMode && (
                                             <button 
                                                 type="button" 
-                                                onClick={fillTestCode}
+                                                onClick={() => setIsVerified(true)}
                                                 style={{background: 'none', border: 'none', color: '#8892b0', cursor: 'pointer', fontSize: '0.8rem', textDecoration: 'underline'}}
                                             >
-                                                Auto-fill Code
+                                                Bypass (Dev)
                                             </button>
                                         )}
                                     </div>
@@ -181,25 +245,6 @@ function About() {
                                 <form onSubmit={handleSubmitReview} className="review-input-step">
                                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem'}}>
                                         <h4 style={{margin: 0}}>Share your experience</h4>
-                                        
-                                        {/* --- ONLY SHOW FILL TEST DATA IF DEV MODE --- */}
-                                        {isDevMode && (
-                                            <button 
-                                                type="button"
-                                                onClick={fillTestData}
-                                                style={{
-                                                    background: '#172a45', 
-                                                    border: '1px solid #64ffda', 
-                                                    color: '#64ffda', 
-                                                    padding: '4px 8px', 
-                                                    borderRadius: '4px', 
-                                                    cursor: 'pointer', 
-                                                    fontSize: '0.75rem'
-                                                }}
-                                            >
-                                                Fill Test Data
-                                            </button>
-                                        )}
                                     </div>
 
                                     <input 
