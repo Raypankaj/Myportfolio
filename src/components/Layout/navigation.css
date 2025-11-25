@@ -3,7 +3,6 @@
 /* ========================================================== */
 
 .navbar {
-  /* 📦 Layout & Positioning */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,16 +10,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px; /* Crucial for layout stability */
+  height: 80px;
   z-index: 1000;
-  
-  /* 🖼️ Appearance */
-  background-color: #1A1F26; /* Dark slate background */
+  background-color: #1A1F26;
   color: white;
-  padding: 0 40px; /* Horizontal padding */
+  padding: 0 40px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  
-  /* 📏 Transition for Smart Hiding */
   transition: transform 0.3s ease-in-out; 
 }
 
@@ -29,7 +24,6 @@
 /* ========================================================== */
 
 .navbar.hidden {
-  /* Hides the navbar by sliding it up exactly its height */
   transform: translateY(-80px); 
 }
 
@@ -41,10 +35,11 @@
   display: flex;
   align-items: center;
   min-width: 120px;
+  z-index: 1002; /* Ensures logo stays on top of mobile menu */
 }
 
 .navbar-logo a {
-  display: flex; /* Ensures anchor wraps image correctly */
+  display: flex;
   transition: transform 0.2s ease;
 }
 
@@ -53,30 +48,27 @@
 }
 
 .logo-image {
-  /* Corrected logic from your snippet */
   height: auto; 
-  max-height: 50px; /* Fits comfortably within 80px navbar */
-  width: auto;      /* Maintains aspect ratio */
+  max-height: 50px;
+  width: auto;
   object-fit: contain;
-  object-position: left center;
 }
 
 /* ========================================================== */
-/* 4. NAVIGATION LINKS */
+/* 4. NAVIGATION LINKS (Desktop Default) */
 /* ========================================================== */
 
 .navbar-links {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 25px; /* Spacing between items */
+  gap: 25px;
   margin: 0;
   padding: 0;
 }
 
-/* General Link Styling */
 .navbar-links a {
-  color: #ccd6f6; /* Off-white text */
+  color: #ccd6f6;
   text-decoration: none;
   font-size: 16px;
   font-family: 'Calibre', sans-serif;
@@ -85,79 +77,112 @@
 }
 
 .navbar-links a:hover {
-  color: #00bcd4; /* Cyan hover effect */
-  transform: translateY(-2px); /* Slight lift */
+  color: #00bcd4;
+  transform: translateY(-2px);
 }
 
 /* ========================================================== */
 /* 5. BUTTONS & SPECIAL LINKS */
 /* ========================================================== */
 
-/* --- AI Feature Links (Specific Colors) --- */
-.ai-link {
-  font-weight: 600; 
+.ai-link { font-weight: 600; }
+
+a[href="/ai-answer"] { color: #20c997; }
+a[href="/ai-answer"]:hover { 
+  color: #64ffda; 
+  text-shadow: 0 0 8px rgba(32, 201, 151, 0.4); 
 }
 
-/* AI Answer: Cyan/Teal Style */
-a[href="/ai-answer"] {
-  color: #20c997; 
-}
+a[href="/ai-config"] { color: #ae48ff; }
 
-a[href="/ai-answer"]:hover {
-  color: #64ffda;
-  text-shadow: 0 0 8px rgba(32, 201, 151, 0.4);
-}
-
-/* AI Config: Purple Style (if you enable it later) */
-a[href="/ai-config"] {
-  color: #ae48ff; 
-}
-
-/* --- Call To Action (Contact Button) --- */
 .cta-button {
   background-color: transparent;
-  color: #e91e63 !important; /* Pink text */
+  color: #e91e63 !important;
   padding: 8px 20px;
   border-radius: 4px;
-  border: 1px solid #e91e63; /* Pink border */
+  border: 1px solid #e91e63;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
 }
 
 .cta-button:hover {
-  background-color: rgba(233, 30, 99, 0.1); /* Subtle pink background tint */
+  background-color: rgba(233, 30, 99, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(233, 30, 99, 0.4); /* Pink glow */
+  box-shadow: 0 0 15px rgba(233, 30, 99, 0.4);
 }
 
 /* ========================================================== */
-/* 6. RESPONSIVE DESIGN (Mobile/Tablet) */
+/* 6. RESPONSIVE HAMBURGER MENU (New Code) */
 /* ========================================================== */
 
+/* Hide Hamburger on Desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1002; /* Must be above the sliding menu */
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #ccd6f6;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile & Tablet Logic */
 @media (max-width: 768px) {
   .navbar {
-    height: 70px; 
-    padding: 0 20px;
+    padding: 0 20px; /* Less padding on mobile */
   }
 
-  .navbar.hidden {
-    transform: translateY(-70px);
+  /* 1. Show the Hamburger Icon */
+  .hamburger {
+    display: flex;
   }
 
-  .logo-image {
-    max-height: 40px; /* Smaller logo on mobile */
-  }
-
+  /* 2. Transform the Links into a Sliding Drawer */
   .navbar-links {
-    gap: 15px;
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start HIDDEN off-screen to the right */
+    width: 75%;   /* Cover 75% of screen width */
+    height: 100vh; /* Full height */
+    background-color: #11161d; /* Slightly darker background */
+    flex-direction: column; /* Stack links vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* More space between links */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    transition: right 0.3s ease-in-out; /* Smooth slide animation */
+    z-index: 1001;
   }
 
-  .navbar-links a {
-    font-size: 14px;
+  /* 3. The 'Active' class slides it in */
+  .navbar-links.active {
+    right: 0;
   }
-  
+
+  /* 4. Make Text Bigger for Touch */
+  .navbar-links a {
+    font-size: 22px;
+  }
+
   .cta-button {
-    padding: 6px 12px;
-    font-size: 14px;
+    font-size: 20px;
+    padding: 12px 30px;
+  }
+
+  /* 5. Animate Hamburger to 'X' when active */
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0; /* Hide middle bar */
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
   }
 }
